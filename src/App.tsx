@@ -7,6 +7,7 @@ import Highlights from '@/components/Highlights';
 import Experience from '@/components/Experience';
 import Projects from '@/components/Projects';
 import Skills from '@/components/Skills';
+import TechMarquee from '@/components/TechMarquee';
 import AIEngineering from '@/components/AIEngineering';
 import Architecture from '@/components/Architecture';
 import Education from '@/components/Education';
@@ -25,6 +26,7 @@ function App() {
         <Highlights />
         <Experience />
         <Projects />
+        <TechMarquee />
         <Skills />
         <AIEngineering />
         <Architecture />

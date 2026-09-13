@@ -214,7 +214,7 @@ export default function Hero() {
             <button
               onClick={() => scrollTo('contact')}
               data-cursor-label="open_contact()"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-sm font-semibold transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               <Mail className="w-4 h-4" />
               Contact Me

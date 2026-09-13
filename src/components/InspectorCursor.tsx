@@ -32,10 +32,8 @@ export default function InspectorCursor() {
 
   const bracketSize = 10;
   const strokeW = 1.5;
-  // Idle reticle SVG must have a REAL non-zero viewport — a 0x0 <svg> never paints children.
+  // Idle reticle SVG size
   const idleSize = bracketSize * 2;   // 20x20
-  const idleInset = bracketSize / 2;  // 5
-  const idleOuter = idleInset + bracketSize; // 15
 
   const isHovering = useMotionValue(0);
   const fillOpacity = useTransform(isHovering, [0, 1], [0, 0.05]);
@@ -43,9 +41,12 @@ export default function InspectorCursor() {
   // (a) is cursor visible/positioned — true after first mousemove, independent of hover
   const idleOpacity = useMotionValue(0);
   const idleOpacitySpring = useSpring(idleOpacity, { stiffness: 400, damping: 25 });
-  // idle fades slightly when hovering so both layers don't double-up; stays visible (0.35) not 0
-  const hoverDim = useTransform(isHovering, [0, 1], [1, 0.35]);
-  const idleCombinedOpacity = useTransform([idleOpacitySpring, hoverDim], ([a, b]: number[]) => (a as number) * (b as number));
+  // Idle dashed reticle cross-fades out when hovering (1 -> 0)
+  const idleHoverFade = useTransform(isHovering, [0, 1], [1, 0]);
+  const idleCombinedOpacity = useTransform(
+    [idleOpacitySpring, idleHoverFade],
+    ([a, b]: number[]) => (a as number) * (b as number)
+  );
 
   const labelOpacity = useMotionValue(0);
   const labelY = useMotionValue(4);
@@ -63,8 +64,6 @@ export default function InspectorCursor() {
     // set visible on very first mousemove — independent of hover state (b)
     if (idleOpacity.get() === 0) {
       idleOpacity.set(1);
-      // [TEMP DEBUG — remove after verifying] state (a) flips on first move, no hover required
-      console.log('[InspectorCursor] first move: idleOpacity 0->1 at', Math.round(e.clientX), Math.round(e.clientY));
     }
   }, [cursorX, cursorY, idleOpacity]);
 
@@ -129,9 +128,6 @@ export default function InspectorCursor() {
 
   if (reduced) return null;
 
-  // [TEMP DEBUG — remove after verifying] idle <svg> mounts unconditionally with a real viewport
-  console.log('[InspectorCursor] render — idle svg in DOM, viewport', idleSize, 'x', idleSize, 'px');
-
   return (
     <div
       ref={containerRef}
@@ -139,95 +135,38 @@ export default function InspectorCursor() {
       style={{ cursor: 'none' }}
       aria-hidden="true"
     >
-      {/* Corner brackets - idle follow cursor — always visible after first move */}
-      <motion.svg
-        className="absolute top-0 left-0"
+      {/* Dashed slowly-rotating reticle - idle state tracking cursor */}
+      <motion.div
+        className="absolute top-0 left-0 pointer-events-none"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
-          width: idleSize,
-          height: idleSize,
-          overflow: 'visible',
+          translateX: '-50%',
+          translateY: '-50%',
           opacity: idleCombinedOpacity,
         }}
       >
-        {/* Top-left */}
-        <motion.line
-          x1={idleInset}
-          y1={idleInset}
-          x2={idleOuter}
-          y2={idleInset}
-          stroke={strokeColor}
-          strokeWidth={strokeW}
-          strokeLinecap="round"
-        />
-        <motion.line
-          x1={idleInset}
-          y1={idleInset}
-          x2={idleInset}
-          y2={idleOuter}
-          stroke={strokeColor}
-          strokeWidth={strokeW}
-          strokeLinecap="round"
-        />
-        {/* Top-right */}
-        <motion.line
-          x1={idleOuter}
-          y1={idleInset}
-          x2={idleInset}
-          y2={idleInset}
-          stroke={strokeColor}
-          strokeWidth={strokeW}
-          strokeLinecap="round"
-        />
-        <motion.line
-          x1={idleOuter}
-          y1={idleInset}
-          x2={idleOuter}
-          y2={idleOuter}
-          stroke={strokeColor}
-          strokeWidth={strokeW}
-          strokeLinecap="round"
-        />
-        {/* Bottom-left */}
-        <motion.line
-          x1={idleInset}
-          y1={idleOuter}
-          x2={idleOuter}
-          y2={idleOuter}
-          stroke={strokeColor}
-          strokeWidth={strokeW}
-          strokeLinecap="round"
-        />
-        <motion.line
-          x1={idleInset}
-          y1={idleOuter}
-          x2={idleInset}
-          y2={idleInset}
-          stroke={strokeColor}
-          strokeWidth={strokeW}
-          strokeLinecap="round"
-        />
-        {/* Bottom-right */}
-        <motion.line
-          x1={idleOuter}
-          y1={idleOuter}
-          x2={idleInset}
-          y2={idleOuter}
-          stroke={strokeColor}
-          strokeWidth={strokeW}
-          strokeLinecap="round"
-        />
-        <motion.line
-          x1={idleOuter}
-          y1={idleOuter}
-          x2={idleOuter}
-          y2={idleInset}
-          stroke={strokeColor}
-          strokeWidth={strokeW}
-          strokeLinecap="round"
-        />
-      </motion.svg>
+        <motion.svg
+          width={idleSize}
+          height={idleSize}
+          viewBox="0 0 20 20"
+          className="overflow-visible"
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 7, ease: 'linear' }}
+        >
+          <rect
+            x="2"
+            y="2"
+            width="16"
+            height="16"
+            rx="1"
+            fill="none"
+            stroke={strokeColor}
+            strokeWidth={strokeW}
+            strokeDasharray="4 3"
+          />
+        </motion.svg>
+      </motion.div>
 
       {/* Hover bracket overlay - snaps to element bounding box */}
       <motion.div
