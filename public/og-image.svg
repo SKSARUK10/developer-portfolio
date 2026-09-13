@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0f172a"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#grad)" opacity="0.15"/>
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3392fb"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+  </defs>
+  <text x="80" y="260" font-family="Inter, sans-serif" font-size="64" font-weight="800" fill="white">SK SARUK ALI</text>
+  <text x="80" y="340" font-family="monospace" font-size="32" font-weight="500" fill="#3392fb">Backend-focused MERN Developer</text>
+  <text x="80" y="400" font-family="Inter, sans-serif" font-size="24" fill="#94a3b8">2+ years professional experience · Node.js · MongoDB · PostgreSQL · AI/LLM</text>
+  <rect x="80" y="450" width="200" height="50" rx="25" fill="#3392fb"/>
+  <text x="180" y="482" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="white" text-anchor="middle">View Projects</text>
+</svg>
