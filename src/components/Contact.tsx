@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Linkedin, Github, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Github, Send, Zap, Clock } from 'lucide-react';
 import { profile } from '@/data/portfolio';
 import SectionHeading from './SectionHeading';
 import { usePrefersReducedMotion, staggerContainer, fadeUpItem, sectionViewport } from '@/lib/animations';
@@ -30,7 +30,7 @@ export default function Contact() {
         <SectionHeading
           eyebrow="Contact"
           title="Let's build something useful."
-          description="Open to Node.js, backend, MERN, and full-stack roles. Also interested in AI/LLM application opportunities."
+          description="Open to Node.js, backend, MERN, and full-stack roles. Also interested in AI/LLM application opportunities — immediate joiner with a 30 days notice period."
         />
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
@@ -42,6 +42,41 @@ export default function Contact() {
             variants={reduced ? undefined : staggerContainer}
             className="space-y-3"
           >
+            {/* Job preferences */}
+            <motion.div
+              variants={reduced ? undefined : fadeUpItem}
+              className="p-5 rounded-xl bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800"
+            >
+              <div className="flex flex-wrap gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/60">
+                  <Zap className="w-3.5 h-3.5" />
+                  {profile.availability}
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                  <Clock className="w-3.5 h-3.5" />
+                  {profile.noticePeriod}
+                </span>
+              </div>
+              <div className="mt-4">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                  <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-500">
+                    Open to Relocate
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {profile.openToRelocate.map((city) => (
+                    <span
+                      key={city}
+                      className="px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700/50"
+                    >
+                      {city}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
             {contactItems.map((item) => (
               <motion.div
                 key={item.label}
@@ -85,7 +120,7 @@ export default function Contact() {
             viewport={sectionViewport}
             transition={{ duration: 0.5, ease: 'easeOut', delay: 0.15 }}
             onSubmit={handleSubmit}
-            className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 space-y-4"
+            className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 flex flex-col h-full justify-center space-y-5"
           >
             <div>
               <label htmlFor="name" className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
@@ -97,7 +132,7 @@ export default function Contact() {
                 required
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
                 placeholder="Your name"
               />
             </div>
@@ -111,7 +146,7 @@ export default function Contact() {
                 required
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
                 placeholder="your@email.com"
               />
             </div>
@@ -122,10 +157,10 @@ export default function Contact() {
               <textarea
                 id="message"
                 required
-                rows={4}
+                rows={8}
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all resize-none"
+                className="w-full min-h-[220px] px-4 py-3 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-sm text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all resize-none"
                 placeholder="Tell me about the role or project..."
               />
             </div>
@@ -138,7 +173,7 @@ export default function Contact() {
               Send Message
             </button>
             <p className="text-[11px] text-slate-400 dark:text-slate-600 text-center">
-              Opens your email client with the message pre-filled.
+              This opens your mail app with the details filled in — just hit send.
             </p>
           </motion.form>
         </div>

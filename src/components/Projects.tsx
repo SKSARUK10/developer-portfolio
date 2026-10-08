@@ -24,10 +24,10 @@ export default function Projects() {
           whileInView="visible"
           viewport={sectionViewport}
           variants={reduced ? undefined : staggerContainer}
-          className="grid md:grid-cols-2 gap-6 mb-6"
+          className="grid md:grid-cols-2 md:auto-rows-fr gap-6 mb-6"
         >
           {featured.map((project, i) => (
-            <motion.div key={project.id} variants={reduced ? undefined : fadeUpItem}>
+            <motion.div key={project.id} variants={reduced ? undefined : fadeUpItem} className="h-full">
               <ProjectCard project={project} index={i} />
             </motion.div>
           ))}
@@ -50,12 +50,16 @@ export default function Projects() {
               whileInView="visible"
               viewport={sectionViewport}
               variants={reduced ? undefined : staggerContainer}
-              className="grid md:grid-cols-2 gap-6"
+              className="grid md:grid-cols-2 md:auto-rows-fr gap-6"
             >
               {rest.map((project, i) => (
-                <motion.div key={project.id} variants={reduced ? undefined : fadeUpItem}>
-                  <ProjectCard project={project} index={i} />
-                </motion.div>
+            <motion.div
+              key={project.id}
+              variants={reduced ? undefined : fadeUpItem}
+              className="h-full"
+            >
+              <ProjectCard project={project} index={i} />
+            </motion.div>
               ))}
             </motion.div>
           </>

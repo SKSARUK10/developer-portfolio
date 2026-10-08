@@ -8,7 +8,20 @@ export const profile = {
   email: 'saruksoft2000@gmail.com',
   phone: '8945579402',
   linkedinUrl: 'https://www.linkedin.com/in/sk-saruk-ali-b6723a207/',
-  githubUrl: 'https://github.com/tgs-saruk?tab=repositories',
+  githubUrl: 'https://github.com/SKSARUK10?tab=repositories',
+  availability: 'Immediate Joiner',
+  noticePeriod: '30 days notice period',
+  openToRelocate: [
+    'Kolkata',
+    'Bhubaneswar',
+    'Bengaluru',
+    'Hyderabad',
+    'Gurugram',
+    'Chennai',
+    'Kochi',
+    'Mumbai',
+    'Delhi NCR',
+  ],
   resumeUrl: '', // TODO: Replace with actual resume URL
   tagline: 'Building production-ready APIs, scalable applications, and practical AI-powered solutions.',
   supportingText:
@@ -94,7 +107,7 @@ export const projects: Project[] = [
     name: 'Bracketocracy',
     category: 'Gaming / Tournament Platform',
     description:
-      'Backend for a gaming tournament ecosystem supporting 64-team tournaments, automated match progression, score updates, and round advancement from play-in through championship stages.',
+      'Backend for a gaming tournament ecosystem: 64-team brackets, automated match progression, score updates, and round-by-round advancement.',
     contribution: 'Designed and developed backend functionality and tournament progression logic.',
     techStack: ['Node.js', 'Express.js', 'MongoDB', 'REST APIs'],
     highlights: [
@@ -116,7 +129,8 @@ export const projects: Project[] = [
     name: 'Multi-Tenant HR Management System',
     category: 'HR / SaaS',
     description:
-      'A multi-tenant HR management platform designed around employee, role, organization, and permission management.',
+      'Multi-tenant HR management platform covering employee, role, organization, and permission management with complete data isolation per tenant.',
+    contribution: 'Architected multi-tenant data isolation, JWT authentication, and RBAC across organizations.',
     techStack: ['Node.js', 'Express.js', 'MongoDB', 'JWT', 'RBAC'],
     highlights: [
       'Multi-tenant architecture',
@@ -137,7 +151,7 @@ export const projects: Project[] = [
     name: 'HerPlan',
     category: 'Healthcare / Directory Platform',
     description:
-      'Backend services for a childcare provider directory containing 4,000+ listings with search, filtering, and geolocation-based queries.',
+      'Backend services for a childcare provider directory with 4,000+ listings, advanced search, filtering, and geolocation-based queries.',
     techStack: ['Node.js', 'PostgreSQL', 'REST APIs'],
     highlights: [
       '4,000+ provider listings',
@@ -158,7 +172,8 @@ export const projects: Project[] = [
     name: 'Supabase Bible Mobile Applications',
     category: 'Mobile / Offline-first',
     description:
-      'Cross-device Bible mobile applications with offline-first synchronization, Row Level Security, and real-time subscriptions powered by Supabase.',
+      'Cross-device Bible mobile apps with offline-first synchronization, Row Level Security, realtime subscriptions, and SQLite persistence.',
+    contribution: 'Built the offline-first sync layer with Supabase RLS, realtime subscriptions, and local SQLite storage.',
     techStack: ['React Native', 'Supabase', 'SQLite'],
     highlights: [
       'Offline-first synchronization',
@@ -166,6 +181,7 @@ export const projects: Project[] = [
       'Real-time subscriptions',
       'Cross-device content access',
       'Local persistence with SQLite',
+      'React Native + Supabase architecture',
     ],
     githubUrl: '',
     liveUrl: '',
@@ -178,18 +194,41 @@ export const projects: Project[] = [
     name: 'Legislator Scorecard System',
     category: 'Civic Tech',
     description:
-      'Systems for processing and exposing structured legislative voting data through REST APIs.',
-    techStack: ['Node.js', 'REST APIs'],
+      'Backend API for a legislator scorecard platform — managing senators, representatives, votes, activities, and scorecard publishing for the admin dashboard and public UI.',
+    techStack: ['Node.js', 'Express.js', 'MongoDB', 'Mongoose', 'REST APIs', 'JWT'],
     highlights: [
-      'Structured legislative data processing',
-      'REST API exposure',
-      'Database-backed application',
-      'Voting data aggregation',
+      'Senator & representative CRUD',
+      'Votes & activities management',
+      'Admin / Editor review-and-publish workflow',
+      'JWT auth middleware & role permissions',
+      'Quorum API integration',
+      'File uploads & bulk operations',
     ],
-    githubUrl: '',
+    githubUrl: 'https://github.com/tgs-saruk/Scorecard_Backend',
     liveUrl: '',
     caseStudy:
-      'The legislator scorecard system processes raw legislative voting data into structured, queryable formats. The backend handles data ingestion, normalization, and exposes clean REST API endpoints for retrieving legislator voting records, bill summaries, and scorecard calculations. The system enables transparent access to legislative voting patterns.',
+      'The scorecard backend is a layered Node.js/Express service with config, controllers, models, routes, middlewares, validation, and helper modules over MongoDB (Mongoose). It supports a two-role workflow: editors draft changes to senators, representatives, votes, and activities, while admins review, approve, publish, or reject — only admins can delete records or publish live. Legislator, bill, and vote data is fetched from the Quorum API, with JWT-protected endpoints, file uploads, bulk update helpers, and cleanup scripts keeping the dataset consistent. It powers both the admin dashboard and the public scorecard frontend.',
+  },
+  {
+    id: 'documind-ai',
+    name: 'DocuMind AI',
+    category: 'AI / MERN',
+    label: 'Personal / Open-Source Project',
+    description:
+      'Full-stack AI document assistant that turns PDFs into conversations — upload a document, ask questions in plain language, and get answers grounded in retrieved content with cited source pages.',
+    techStack: ['React', 'Node.js', 'Express.js', 'Python', 'FastAPI', 'MongoDB', 'FAISS'],
+    highlights: [
+      'Three-service architecture: React, Node.js/Express, FastAPI',
+      'RAG pipeline: PDF → chunks → embeddings → FAISS → LLM',
+      'Answers with source / page citations',
+      'FastAPI AI service live with config, CORS, and tests',
+      'JWT auth, chat history, MCP integration roadmap',
+      'Free-tier deployment plan: Netlify, Render, Atlas',
+    ],
+    githubUrl: 'https://github.com/SKSARUK10/documind-ai',
+    liveUrl: '',
+    caseStudy:
+      'DocuMind AI separates the system into three deployable services: a React + Vite frontend, a Node.js/Express backend that owns auth, users, document metadata, and chat history, and a Python FastAPI AI service that owns PDF processing, chunking, embeddings, FAISS retrieval, and LLM interaction. Page numbers are preserved through extraction and chunking so every answer can cite its source pages. Phases 0 and 1 are complete — the FastAPI service runs with /health, .env config loading, CORS, and passing tests — with PDF processing, embeddings, RAG, the chat interface, and MCP tool integration following a documented phase-by-phase roadmap.',
   },
   {
     id: 'ai-meeting-summarizer',

@@ -55,7 +55,8 @@ Backend-focused MERN Developer and AI/LLM Application Developer based in Kolagha
 | Multi-Tenant HR Management System | HR / SaaS | Node.js, Express.js, MongoDB, JWT, RBAC |
 | HerPlan | Healthcare / Directory Platform | Node.js, PostgreSQL, REST APIs |
 | Supabase Bible Mobile Applications | Mobile / Offline-first | React Native, Supabase, SQLite |
-| Legislator Scorecard System | Civic Tech | Node.js, REST APIs |
+| Legislator Scorecard System | Civic Tech | Node.js, Express.js, MongoDB, JWT, Quorum API |
+| DocuMind AI | AI / MERN — RAG Document Assistant | React, Node.js, Express.js, FastAPI, FAISS, MongoDB |
 | AI Meeting Summarizer Agent | AI / LLM | Python, OpenAI API |
 | CSV / Excel Data Query Agent | AI / LLM | Python, OpenAI API, Tool Calling |
 | Database Agent | AI / LLM | Python, OpenAI / GenAI |
@@ -143,7 +144,7 @@ Edit that file to update any section of the site without touching component code
 
 - **Email:** saruksoft2000@gmail.com
 - **LinkedIn:** [sk-saruk-ali](https://www.linkedin.com/in/sk-saruk-ali-b6723a207/)
-- **GitHub:** [tgs-saruk](https://github.com/tgs-saruk?tab=repositories)
+- **GitHub:** [SKSARUK10](https://github.com/SKSARUK10?tab=repositories)
 
 ---
 

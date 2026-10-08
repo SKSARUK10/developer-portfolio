@@ -14,7 +14,7 @@ export default function ProjectCard({ project }: Props) {
   return (
     <article
       data-cursor-label="open_project()"
-      className={`group relative rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-xl ${
+      className={`group relative rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-xl h-full flex flex-col ${
         project.featured
           ? 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50'
           : 'border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/30'
@@ -23,7 +23,7 @@ export default function ProjectCard({ project }: Props) {
       {/* Top accent bar */}
       <div className="h-1 w-full bg-gradient-to-r from-brand-500 to-accent-500 opacity-0 group-hover:opacity-100 transition-opacity" />
 
-      <div className="p-6 sm:p-8">
+      <div className="p-6 sm:p-8 flex-1 flex flex-col">
         {/* Header */}
         <div className="flex items-start justify-between gap-4 mb-4">
           <div className="flex-1 min-w-0">
@@ -45,7 +45,7 @@ export default function ProjectCard({ project }: Props) {
         </div>
 
         {/* Description */}
-        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-5">
+        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-5 line-clamp-3">
           {project.description}
         </p>
 
@@ -82,7 +82,7 @@ export default function ProjectCard({ project }: Props) {
         </ul>
 
         {/* Actions */}
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3 mt-auto pt-2">
           <button
             onClick={() => setExpanded(!expanded)}
             data-cursor-label="toggle_case_study()"
