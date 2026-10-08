@@ -210,26 +210,23 @@
   background: rgba(100, 116, 139, 0.5);
 }
 
-/* Inspector cursor - desktop only */
-@media (hover: hover) and (pointer: fine) {
-  :root {
-    --cursor-color: #3392fb;
-  }
-  html.inspector-active,
-  html.inspector-active body {
-    cursor: none !important;
-  }
-  html.inspector-active a,
-  html.inspector-active button,
-  html.inspector-active [data-cursor-label] {
-    cursor: none !important;
-  }
-  html.inspector-active input[type="text"],
-  html.inspector-active input[type="email"],
-  html.inspector-active input[type="tel"],
-  html.inspector-active textarea {
-    cursor: text !important;
-  }
+/* Inspector cursor — hide native cursor on ALL elements when active */
+:root {
+  --cursor-color: #3392fb;
+}
+
+html.inspector-active,
+html.inspector-active *,
+html.inspector-active *::before,
+html.inspector-active *::after {
+  cursor: none !important;
+}
+
+html.inspector-active input[type="text"],
+html.inspector-active input[type="email"],
+html.inspector-active input[type="tel"],
+html.inspector-active textarea {
+  cursor: text !important;
 }
 
 /* Focus visible */

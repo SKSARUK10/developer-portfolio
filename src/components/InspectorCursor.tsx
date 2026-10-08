@@ -38,15 +38,8 @@ export default function InspectorCursor() {
   const isHovering = useMotionValue(0);
   const fillOpacity = useTransform(isHovering, [0, 1], [0, 0.05]);
 
-  // (a) is cursor visible/positioned — true after first mousemove, independent of hover
-  const idleOpacity = useMotionValue(0);
-  const idleOpacitySpring = useSpring(idleOpacity, { stiffness: 400, damping: 25 });
-  // Idle dashed reticle cross-fades out when hovering (1 -> 0)
-  const idleHoverFade = useTransform(isHovering, [0, 1], [1, 0]);
-  const idleCombinedOpacity = useTransform(
-    [idleOpacitySpring, idleHoverFade],
-    ([a, b]: number[]) => (a as number) * (b as number)
-  );
+  // Idle dashed reticle visible by default, cross-fades out when hovering (1 -> 0)
+  const idleCombinedOpacity = useTransform(isHovering, [0, 1], [1, 0]);
 
   const labelOpacity = useMotionValue(0);
   const labelY = useMotionValue(4);
@@ -61,11 +54,7 @@ export default function InspectorCursor() {
   const handleMouseMove = useCallback((e: MouseEvent) => {
     cursorX.set(e.clientX);
     cursorY.set(e.clientY);
-    // set visible on very first mousemove — independent of hover state (b)
-    if (idleOpacity.get() === 0) {
-      idleOpacity.set(1);
-    }
-  }, [cursorX, cursorY, idleOpacity]);
+  }, [cursorX, cursorY]);
 
   const handleMouseOver = useCallback((e: MouseEvent) => {
     const target = (e.target as Element).closest(SELECTOR);
@@ -107,10 +96,10 @@ export default function InspectorCursor() {
   }, [isHovering, labelOpacity, labelY]);
 
   useEffect(() => {
-    const reducedMq = window.matchMedia('(prefers-reduced-motion: reduce)');
     const hoverMq = window.matchMedia('(hover: hover) and (pointer: fine)');
-    if (!hoverMq.matches || reducedMq.matches) return;
+    if (!hoverMq.matches || reduced) return;
 
+    // adds inspector-active — this is what makes cursor: none apply
     document.documentElement.classList.add('inspector-active');
     document.addEventListener('mousemove', handleMouseMove, { passive: true });
     document.addEventListener('mouseover', handleMouseOver, { passive: true });
@@ -122,11 +111,11 @@ export default function InspectorCursor() {
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseout', handleMouseOut);
     };
-  }, [handleMouseMove, handleMouseOver, handleMouseOut]);
-
-  const strokeColor = 'var(--cursor-color, #3392fb)';
+  }, [handleMouseMove, handleMouseOver, handleMouseOut, reduced]);
 
   if (reduced) return null;
+
+  const strokeColor = 'var(--cursor-color, #3392fb)';
 
   return (
     <div
@@ -137,12 +126,12 @@ export default function InspectorCursor() {
     >
       {/* Dashed slowly-rotating reticle - idle state tracking cursor */}
       <motion.div
-        className="absolute top-0 left-0 pointer-events-none"
+        className="absolute pointer-events-none"
         style={{
+          left: -10,
+          top: -10,
           x: cursorXSpring,
           y: cursorYSpring,
-          translateX: '-50%',
-          translateY: '-50%',
           opacity: idleCombinedOpacity,
         }}
       >
@@ -151,8 +140,8 @@ export default function InspectorCursor() {
           height={idleSize}
           viewBox="0 0 20 20"
           className="overflow-visible"
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 7, ease: 'linear' }}
+          animate={reduced ? undefined : { rotate: 360 }}
+          transition={reduced ? undefined : { repeat: Infinity, duration: 7, ease: 'linear' }}
         >
           <rect
             x="2"
