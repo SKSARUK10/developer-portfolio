@@ -6,7 +6,6 @@ export const profile = {
   experience: '2+ years professional experience',
   location: 'Kolaghat, West Bengal, India',
   email: 'saruksoft2000@gmail.com',
-  phone: '8945579402',
   linkedinUrl: 'https://www.linkedin.com/in/sk-saruk-ali-b6723a207/',
   githubUrl: 'https://github.com/SKSARUK10?tab=repositories',
   availability: 'Immediate Joiner',

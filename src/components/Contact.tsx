@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Linkedin, Github, Send, Zap, Clock } from 'lucide-react';
+import { Mail, MapPin, Linkedin, Github, Send, Zap, Clock } from 'lucide-react';
 import { profile } from '@/data/portfolio';
 import SectionHeading from './SectionHeading';
 import { usePrefersReducedMotion, staggerContainer, fadeUpItem, sectionViewport } from '@/lib/animations';
@@ -18,7 +18,6 @@ export default function Contact() {
 
   const contactItems = [
     { icon: Mail, label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
-    { icon: Phone, label: 'Phone', value: profile.phone, href: `tel:+91${profile.phone}` },
     { icon: MapPin, label: 'Location', value: profile.location, href: null },
     { icon: Linkedin, label: 'LinkedIn', value: 'Connect', href: profile.linkedinUrl || null },
     { icon: Github, label: 'GitHub', value: 'Profile', href: profile.githubUrl || null },
@@ -40,7 +39,7 @@ export default function Contact() {
             whileInView="visible"
             viewport={sectionViewport}
             variants={reduced ? undefined : staggerContainer}
-            className="space-y-3"
+            className="flex flex-col h-full justify-between gap-3"
           >
             {/* Job preferences */}
             <motion.div
