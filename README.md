@@ -145,9 +145,3 @@ Edit that file to update any section of the site without touching component code
 - **Email:** saruksoft2000@gmail.com
 - **LinkedIn:** [sk-saruk-ali](https://www.linkedin.com/in/sk-saruk-ali-b6723a207/)
 - **GitHub:** [SKSARUK10](https://github.com/SKSARUK10?tab=repositories)
-
----
-
-## License
-
-MIT License — see [LICENSE](LICENSE) for details.
